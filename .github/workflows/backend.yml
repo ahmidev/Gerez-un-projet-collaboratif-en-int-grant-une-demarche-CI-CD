@@ -39,32 +39,30 @@ jobs:
         run: mvn test jacoco:report
         working-directory: ./back
 
+      # Upload du rapport de couverture de test
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
           name: backend-coverage
           path: back/target/site/jacoco
 
-      # Set up JDK 17 specifically for SonarCloud scan
-      - name: Set up JDK 17 for SonarCloud
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
       - name: SonarCloud Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
         working-directory: ./back
 
-
-      - name: Build Docker image
+      # Build et Push de l'image Docker sur Docker Hub
+      - name: Build and Push Docker image
         uses: docker/build-push-action@v3
         with:
           context: ./back
-          push: false
+          push: true
           tags: ahmid44/bobapp-backend:latest
+          # Remplacez par votre nom d'utilisateur et mot de passe Docker Hub
+          load: true
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
