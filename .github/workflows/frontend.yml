@@ -49,7 +49,7 @@ jobs:
         with:
           projectBaseDir: ./front
           args: >
-            -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD-frontend
+            -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=ahmidev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
