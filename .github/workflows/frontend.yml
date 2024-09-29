@@ -28,6 +28,9 @@ jobs:
       - name: Run tests
         working-directory: front
         run: npm run test -- --watch=false --code-coverage
+        # Vérifier l'existence du rapport de couverture lcov.info
+      - name: Check lcov.info existence
+        run: ls -la front/coverage
 
       # Upload du rapport de couverture de test
       - name: Upload coverage report
@@ -43,7 +46,7 @@ jobs:
           args: >
             -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=ahmidev
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info 
+             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
