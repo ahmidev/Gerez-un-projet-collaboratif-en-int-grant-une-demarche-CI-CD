@@ -11,11 +11,6 @@ RUN npm run build
 # Étape 2 : Serveur Nginx pour la production
 FROM nginx:latest as production
 
-# Ajouter un utilisateur non root pour exécuter Nginx
-RUN adduser --disabled-password --no-create-home nginxuser
-
-USER nginxuser
-
 # Copier la configuration de Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
