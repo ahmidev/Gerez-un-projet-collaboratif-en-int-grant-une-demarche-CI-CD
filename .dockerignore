@@ -1,5 +1,25 @@
+# Ignorer les dépendances Node.js
 node_modules
+
+# Ignorer les fichiers de configuration de l'éditeur
+.vscode
+.idea
+
+# Ignorer les fichiers de versionnement Git
 .git
 .gitignore
+
+# Ignorer les fichiers de build locaux
+dist
+coverage
+
+# Ignorer les fichiers de documentation et d'exemples
 README.md
+*.md
+
+# Ignorer les fichiers Dockerfile et de configuration
 Dockerfile
+.dockerignore
+
+# Ignorer d'autres fichiers sensibles
+.env
