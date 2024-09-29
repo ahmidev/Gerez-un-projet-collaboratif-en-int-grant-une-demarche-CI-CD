@@ -27,7 +27,14 @@ jobs:
 
       - name: Run tests
         working-directory: front
-        run: npm run test -- --watch=false --browsers=ChromeHeadless
+        run: npm run test -- --watch=false --code-coverage
+
+      # Upload du rapport de couverture de test
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-coverage
+          path: front/coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -40,3 +47,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      # Build et Push de l'image Docker sur Docker Hub
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./front
+          push: true
+          tags: ahmid44/bobapp-frontend:latest
+          # Remplacez par votre nom d'utilisateur et mot de passe Docker Hub
+          load: true
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
