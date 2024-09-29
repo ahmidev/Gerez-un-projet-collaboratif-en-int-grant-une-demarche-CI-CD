@@ -13,46 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
+        
+      - name: Set up Node.js 
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0  
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
+          node-version: 16
+          
       - name: Install dependencies
-        working-directory: ./front
-        run: npm install
+        working-directory: front
+        run: yarn install
 
       - name: Run tests
-        run: npm test -- --watch=false --code-coverage
-        working-directory: ./front
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: frontend-coverage
-          path: front/coverage
+        working-directory: front
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.5
+        uses: SonarSource/sonarcloud-github-action@master
         with:
-          projectBaseDir: ./front
+          projectBaseDir: front
           args: >
-           -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD-frontend
-           -Dsonar.organization=ahmidev
+            -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.organization=ahmidev
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          working-directory: ./front
 
-
-      - name: Build Docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: ./front
-          push: false
-          tags: ahmid44/bobapp-frontend:latest
