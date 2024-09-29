@@ -42,7 +42,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectKey=ahmidev
+            -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=ahmidev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
