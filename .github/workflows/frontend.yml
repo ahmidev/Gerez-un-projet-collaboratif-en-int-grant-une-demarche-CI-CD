@@ -1,0 +1,45 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd front
+          npm install
+
+      - name: Run tests
+        run: npm test -- --watch=false --code-coverage
+        working-directory: ./front
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-coverage
+          path: front/coverage
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./front
+          push: false
+          tags: ahmid44/bobapp-frontend:latest
+
