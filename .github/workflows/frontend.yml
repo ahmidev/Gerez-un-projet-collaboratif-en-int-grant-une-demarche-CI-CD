@@ -47,6 +47,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          working-directory: ./front
+
 
       - name: Build Docker image
         uses: docker/build-push-action@v3
