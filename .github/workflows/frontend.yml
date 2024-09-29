@@ -43,6 +43,7 @@ jobs:
           args: >
             -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=ahmidev
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
