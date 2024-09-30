@@ -48,7 +48,7 @@ jobs:
             -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=ahmidev
             -Dsonar.sources=src
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=coverage\bobapp\lcov.info
             -Dsonar.exclusions=**/*.java,src/proxy.config.json,src/styles.scss,src/environments/environment.prod.ts,src/environments/environment.ts,**/*.spec.ts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
