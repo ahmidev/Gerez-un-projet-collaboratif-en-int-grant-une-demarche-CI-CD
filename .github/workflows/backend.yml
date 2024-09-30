@@ -50,7 +50,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKENB }}
         with:
             projectBaseDir: back
             args: >
@@ -63,7 +63,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_ACCESS_TOKENB }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
       # Build et Push de l'image Docker sur Docker Hub
       - name: Build and Push Docker image
