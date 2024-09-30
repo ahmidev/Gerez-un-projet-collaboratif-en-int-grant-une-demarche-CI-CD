@@ -50,6 +50,7 @@ jobs:
             -Dsonar.sources=src
             -Dsonar.javascript.lcov.reportPaths=coverage\bobapp\lcov.info
             -Dsonar.exclusions=**/*.java,src/proxy.config.json,src/styles.scss,src/environments/environment.prod.ts,src/environments/environment.ts,**/*.spec.ts
+            -Dsonar.coverage.exclusions=src/main.ts,src/polyfills.ts,src/test.ts,src/index.html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
