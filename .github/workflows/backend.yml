@@ -47,12 +47,16 @@ jobs:
           path: back/target/site/jacoco
 
       - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ahmidev_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-        working-directory: ./back
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+            projectBaseDir: back
+            args: >
+              -Dsonar.java.binaries=target/classes
+              -Dsonar.projectKey=ahmidev_back_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+              -Dsonar.organization=ahmidev
 
       # Se connecter à Docker Hub
       - name: Login to Docker Hub
